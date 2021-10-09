@@ -25,12 +25,12 @@ stages:
         backendType: 'azurerm'
         backendServiceArm: 'terraform-sp-63498'
         ensureBackend: true
-        backendAzureRmResourceGroupName: '$(vg-assetname)-$(vg.environment)-$(vg.location)-rg-1'
-        backendAzureRmResourceGroupLocation: '$(vg.location)'
+        backendAzureRmResourceGroupName: '$(vg-assetname)-$(vg-environment)-$(vg-location)-rg-1'
+        backendAzureRmResourceGroupLocation: '$(vg-location)'
         backendAzureRmStorageAccountName: '$(vg-assetname)storageacc0011'
         backendAzureRmStorageAccountSku: 'Standard_LRS'
         backendAzureRmContainerName: 'tfstates'
-        backendAzureRmKey: '$(vg.environment)-tfstate'
+        backendAzureRmKey: '$(vg-environment)-tfstate'
         allowTelemetryCollection: false
         commandOptions: '-var assetname=$(vg-assetname) -var environment=$(vg-environment) -var location=$(vg-location)'
     - task: TerraformCLI@0
