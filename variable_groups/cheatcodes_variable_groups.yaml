@@ -46,6 +46,7 @@ stages:
         environmentServiceName: 'terraform-sp-63498'
         allowTelemetryCollection: false
         commandOptions: '-var assetname=$(vg-assetname) -var environment=$(vg-environment) -var location=$(vg-location)'
+    
     # - task: TerraformCLI@0
     #   displayName: Terraform apply
     #   inputs:
