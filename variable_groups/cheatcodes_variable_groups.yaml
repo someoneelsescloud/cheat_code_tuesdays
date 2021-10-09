@@ -12,6 +12,7 @@ stages:
   displayName: Terraform init / plan
   jobs:
   - job:
+    displayName: terraform_init_plan
     continueOnError: false
     steps:
     - task: TerraformInstaller@0
