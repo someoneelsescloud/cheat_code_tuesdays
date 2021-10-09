@@ -33,12 +33,14 @@ stages:
         backendAzureRmKey: '$(vg-environment)-tfstate'
         allowTelemetryCollection: false
         commandOptions: '-var assetname=$(vg-assetname) -var environment=$(vg-environment) -var location=$(vg-location)'
+        workingDirectory: '$(System.DefaultWorkingDirectory)'
     - task: TerraformCLI@0
       displayName: Terraform validate
       inputs:
         command: 'validate'
         environmentServiceName: 'terraform-sp-63498'
         allowTelemetryCollection: false
+        workingDirectory: '$(System.DefaultWorkingDirectory)'
     - task: TerraformCLI@0
       displayName: Terraform plan
       inputs:
@@ -46,7 +48,7 @@ stages:
         environmentServiceName: 'terraform-sp-63498'
         allowTelemetryCollection: false
         commandOptions: '-var assetname=$(vg-assetname) -var environment=$(vg-environment) -var location=$(vg-location)'
-    
+        workingDirectory: '$(System.DefaultWorkingDirectory)'
     
     # - task: TerraformCLI@0
     #   displayName: Terraform apply
