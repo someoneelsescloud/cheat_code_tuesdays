@@ -5,23 +5,25 @@ pool:
   vmImage: windows-latest
 
 stages:
-- stage: deploy_mix1
+
+- stage: deploy_dogs
   jobs:
     - job:
       steps:
       - template: templates/cheatcode_template.yaml
         parameters: 
-          assetname: mix1
+          assetname: dogs
           environment: dev
           location: westus
-          destroy: false
-- stage: deploy_mix2
+          serviceconnection: terraform-sp-63498
+- stage: deploy_cats
   jobs:
     - job:
       steps:
       - template: templates/cheatcode_template.yaml
         parameters: 
-          assetname: mix2
+          assetname: cats
           environment: dev
           location: westus
-          destroy: false
+          serviceconnection: terraform-sp-63498
+

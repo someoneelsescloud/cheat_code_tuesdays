@@ -8,9 +8,10 @@ parameters:
 - name: location
   type: string
   default: false
-- name: destroy
+- name: serviceconnection
   type: string
   default: false
+
 
 steps:
 - task: TerraformInstaller@0
@@ -22,7 +23,7 @@ steps:
   inputs:
     command: 'init'
     backendType: 'azurerm'
-    backendServiceArm: 'terraform-sp-63498'
+    backendServiceArm: '${{ parameters.serviceconnection }}'
     ensureBackend: true
     backendAzureRmResourceGroupName: '${{ parameters.assetname}}-${{ parameters.environment}}-${{ parameters.location}}-rg-1'
     backendAzureRmResourceGroupLocation: '${{ parameters.location}}'
@@ -37,32 +38,22 @@ steps:
   displayName: Terraform validate
   inputs:
     command: 'validate'
-    environmentServiceName: 'terraform-sp-63498'
+    environmentServiceName: '${{ parameters.serviceconnection }}'
     allowTelemetryCollection: false
     workingDirectory: '$(System.DefaultWorkingDirectory)/04_azure_pipeline_templates'
 - task: TerraformCLI@0
   displayName: Terraform plan
   inputs:
     command: 'plan'
-    environmentServiceName: 'terraform-sp-63498'
+    environmentServiceName: '${{ parameters.serviceconnection }}'
     allowTelemetryCollection: false
     commandOptions: '-var assetname=${{ parameters.assetname}} -var environment=${{ parameters.environment}} -var location=${{ parameters.location}}'
     workingDirectory: '$(System.DefaultWorkingDirectory)/04_azure_pipeline_templates'    
-- task: TerraformCLI@0
-  displayName: Terraform apply
-  condition: eq(variables.destroy, 'false')
-  inputs:
-    command: 'apply'
-    environmentServiceName: 'terraform-sp-63498'
-    commandOptions: '-var assetname=${{ parameters.assetname}} -var environment=${{ parameters.environment}} -var location=${{ parameters.location}}'
-    workingDirectory: '$(System.DefaultWorkingDirectory)/04_azure_pipeline_templates'    
-    allowTelemetryCollection: false
-- task: TerraformCLI@0
-  displayName: Terraform Destroy
-  condition: eq(variables.destroy, 'true')
-  inputs:
-    command: 'destroy'
-    environmentServiceName: 'terraform-sp-63498'
-    commandOptions: '-var assetname=${{ parameters.assetname}} -var environment=${{ parameters.environment}} -var location=${{ parameters.location}}'
-    allowTelemetryCollection: false
-    workingDirectory: '$(System.DefaultWorkingDirectory)/04_azure_pipeline_templates'    
+# - task: TerraformCLI@0
+#   displayName: Terraform apply
+#   inputs:
+#     command: 'apply'
+#     environmentServiceName: '${{ parameters.serviceconnection }}'
+#     commandOptions: '-var assetname=${{ parameters.assetname}} -var environment=${{ parameters.environment}} -var location=${{ parameters.location}}'
+#     workingDirectory: '$(System.DefaultWorkingDirectory)/04_azure_pipeline_templates'    
+#     allowTelemetryCollection: false
