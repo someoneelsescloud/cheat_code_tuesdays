@@ -5,9 +5,8 @@ parameters:
 
 # https://docs.microsoft.com/en-us/azure/devops/pipelines/process/templates?view=azure-devops
 
-
 variables:
- - group: ${{ parameters.variablegroup }}
+- group: ${{ parameters.variablegroup }}
 
 - task: TerraformInstaller@0
   displayName: Install Terraform
