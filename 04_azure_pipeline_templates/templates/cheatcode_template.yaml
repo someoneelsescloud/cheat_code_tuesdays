@@ -22,14 +22,14 @@ steps:
     backendType: 'azurerm'
     backendServiceArm: 'terraform-sp-63498'
     ensureBackend: true
-    backendAzureRmResourceGroupName: '${{ parameters.vg-assetname}}-${{ parameters.vg-environment}}-${{ parameters.vg-location}}-rg-1'
-    backendAzureRmResourceGroupLocation: '${{ parameters.vg-location}}'
-    backendAzureRmStorageAccountName: '${{ parameters.vg-assetname}}storageacc0011'
+    backendAzureRmResourceGroupName: '${{ parameters.assetname}}-${{ parameters.environment}}-${{ parameters.location}}-rg-1'
+    backendAzureRmResourceGroupLocation: '${{ parameters.location}}'
+    backendAzureRmStorageAccountName: '${{ parameters.assetname}}storageacc0011'
     backendAzureRmStorageAccountSku: 'Standard_LRS'
     backendAzureRmContainerName: 'tfstates'
-    backendAzureRmKey: '${{ parameters.vg-environment}}-tfstate'
+    backendAzureRmKey: '${{ parameters.environment}}-tfstate'
     allowTelemetryCollection: false
-    commandOptions: '-var assetname=${{ parameters.vg-assetname}} -var environment=${{ parameters.vg-environment}} -var location=${{ parameters.vg-location}}'
+    commandOptions: '-var assetname=${{ parameters.assetname}} -var environment=${{ parameters.environment}} -var location=${{ parameters.location}}'
     workingDirectory: '$(System.DefaultWorkingDirectory)/04_azure_pipeline_templates'
 - task: TerraformCLI@0
   displayName: Terraform validate
@@ -44,7 +44,7 @@ steps:
     command: 'plan'
     environmentServiceName: 'terraform-sp-63498'
     allowTelemetryCollection: false
-    commandOptions: '-var assetname=${{ parameters.vg-assetname}} -var environment=${{ parameters.vg-environment}} -var location=${{ parameters.vg-location}}'
+    commandOptions: '-var assetname=${{ parameters.assetname}} -var environment=${{ parameters.environment}} -var location=${{ parameters.location}}'
     workingDirectory: '$(System.DefaultWorkingDirectory)/04_azure_pipeline_templates'    
 - task: TerraformCLI@0
   displayName: Terraform apply
