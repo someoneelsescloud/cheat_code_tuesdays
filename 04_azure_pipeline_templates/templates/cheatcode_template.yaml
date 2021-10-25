@@ -5,7 +5,7 @@ parameters:
 - name: environment
   type: string
   default: false
-  - name: location
+- name: location
   type: string
   default: false
 # https://docs.microsoft.com/en-us/azure/devops/pipelines/process/templates?view=azure-devops
