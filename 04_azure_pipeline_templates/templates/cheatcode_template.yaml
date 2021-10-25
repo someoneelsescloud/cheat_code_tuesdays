@@ -50,7 +50,7 @@ steps:
     workingDirectory: '$(System.DefaultWorkingDirectory)/04_azure_pipeline_templates'    
 - task: TerraformCLI@0
   displayName: Terraform apply
-  conditions: eq(variables.destroy, 'false'))
+  condition: eq(variables.destroy, 'false'))
   inputs:
     command: 'apply'
     environmentServiceName: 'terraform-sp-63498'
@@ -59,7 +59,7 @@ steps:
     allowTelemetryCollection: false
 - task: TerraformCLI@0
   displayName: Terraform Destroy
-  conditions: eq(variables.destroy, 'true'))
+  condition: eq(variables.destroy, 'true'))
   inputs:
     command: 'destroy'
     environmentServiceName: 'terraform-sp-63498'
