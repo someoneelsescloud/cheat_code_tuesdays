@@ -1,0 +1,20 @@
+trigger: none
+pr: none
+
+pool:
+  vmImage: windows-latest
+
+stages:
+- stage: terraform_mix1
+  displayName: Terraform Deploy
+  jobs:
+  - template: templates/cheatcode_template.yaml
+    parameters: 
+      variablegroup: cheatcode_mix1
+
+- stage: terraform_mix2
+  displayName: Terraform Deploy
+  jobs:
+  - template: templates/cheatcode_template.yaml
+    parameters: 
+      variablegroup: cheatcode_mix2
