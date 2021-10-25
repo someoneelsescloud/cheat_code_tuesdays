@@ -51,5 +51,5 @@ steps:
   inputs:
     command: 'apply'
     environmentServiceName: 'terraform-sp-63498'
-    commandOptions: '-var-file="dev/main.tfvars"'
+    commandOptions: '-var assetname=${{ parameters.assetname}} -var environment=${{ parameters.environment}} -var location=${{ parameters.location}}'
     allowTelemetryCollection: false
