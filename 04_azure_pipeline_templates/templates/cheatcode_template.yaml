@@ -5,8 +5,6 @@ parameters:
 
 # https://docs.microsoft.com/en-us/azure/devops/pipelines/process/templates?view=azure-devops
 
-jobs:
-- job: terraform_deploy
   variables:
   - group: ${{ parameters.variablegroup }}
 
