@@ -5,14 +5,21 @@ pool:
   vmImage: windows-latest
 
 stages:
-- stage: terraform_mix1
-  displayName: Terraform Deploy
-  - template: templates/cheatcode_template.yaml
-    parameters: 
-      variablegroup: cheatcode_mix1
-
-- stage: terraform_mix2
-  displayName: Terraform Deploy
-  - template: templates/cheatcode_template.yaml
-    parameters: 
-      variablegroup: cheatcode_mix2
+- stage: deploy_mix1
+  jobs:
+    - job:
+      steps:
+      - template: templates/cheatcode_template.yaml
+        parameters: 
+          assetname: mix1
+          environment: dev
+          location: westus
+- stage: deploy_mix2
+  jobs:
+    - job:
+      steps:
+      - template: templates/cheatcode_template.yaml
+        parameters: 
+          assetname: mix2
+          environment: dev
+          location: westus
