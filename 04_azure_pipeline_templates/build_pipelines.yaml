@@ -6,7 +6,7 @@ pool:
 
 stages:
 
-- stage: deploy_dogs
+- stage: deploy_all
   jobs:
     - job:
       steps:
@@ -16,8 +16,6 @@ stages:
           environment: dev
           location: westus
           serviceconnection: terraform-sp-63498
-- stage: deploy_cats
-  jobs:
     - job:
       steps:
       - template: templates/cheatcode_template.yaml
