@@ -55,6 +55,7 @@ steps:
     command: 'apply'
     environmentServiceName: 'terraform-sp-63498'
     commandOptions: '-var assetname=${{ parameters.assetname}} -var environment=${{ parameters.environment}} -var location=${{ parameters.location}}'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/04_azure_pipeline_templates'    
     allowTelemetryCollection: false
 - task: TerraformCLI@0
   displayName: Terraform Destroy
@@ -64,3 +65,4 @@ steps:
     environmentServiceName: 'terraform-sp-63498'
     commandOptions: '-var assetname=${{ parameters.assetname}} -var environment=${{ parameters.environment}} -var location=${{ parameters.location}}'
     allowTelemetryCollection: false
+    workingDirectory: '$(System.DefaultWorkingDirectory)/04_azure_pipeline_templates'    
