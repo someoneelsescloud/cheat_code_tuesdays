@@ -5,48 +5,51 @@ parameters:
 
 # https://docs.microsoft.com/en-us/azure/devops/pipelines/process/templates?view=azure-devops
 
-variables:
-- group: ${{ parameters.variablegroup }}
+jobs:
+- job: terraform_deploy
+  variables:
+  - group: ${{ parameters.variablegroup }}
 
-- task: TerraformInstaller@0
-  displayName: Install Terraform
-  inputs:
-    terraformVersion: 'latest'
-- task: TerraformCLI@0
-  displayName: Terraform init
-  inputs:
-    command: 'init'
-    backendType: 'azurerm'
-    backendServiceArm: 'terraform-sp-63498'
-    ensureBackend: true
-    backendAzureRmResourceGroupName: '$(vg-assetname)-$(vg-environment)-$(vg-location)-rg-1'
-    backendAzureRmResourceGroupLocation: '$(vg-location)'
-    backendAzureRmStorageAccountName: '$(vg-assetname)storageacc0011'
-    backendAzureRmStorageAccountSku: 'Standard_LRS'
-    backendAzureRmContainerName: 'tfstates'
-    backendAzureRmKey: '$(vg-environment)-tfstate'
-    allowTelemetryCollection: false
-    commandOptions: '-var assetname=$(vg-assetname) -var environment=$(vg-environment) -var location=$(vg-location)'
-    workingDirectory: '$(System.DefaultWorkingDirectory)/04_azure_pipeline_templates'
-- task: TerraformCLI@0
-  displayName: Terraform validate
-  inputs:
-    command: 'validate'
-    environmentServiceName: 'terraform-sp-63498'
-    allowTelemetryCollection: false
-    workingDirectory: '$(System.DefaultWorkingDirectory)/04_azure_pipeline_templates'
-- task: TerraformCLI@0
-  displayName: Terraform plan
-  inputs:
-    command: 'plan'
-    environmentServiceName: 'terraform-sp-63498'
-    allowTelemetryCollection: false
-    commandOptions: '-var assetname=$(vg-assetname) -var environment=$(vg-environment) -var location=$(vg-location)'
-    workingDirectory: '$(System.DefaultWorkingDirectory)/04_azure_pipeline_templates'    
-- task: TerraformCLI@0
-  displayName: Terraform apply
-  inputs:
-    command: 'apply'
-    environmentServiceName: 'terraform-sp-63498'
-    commandOptions: '-var-file="dev/main.tfvars"'
-    allowTelemetryCollection: false
+  steps:
+  - task: TerraformInstaller@0
+    displayName: Install Terraform
+    inputs:
+      terraformVersion: 'latest'
+  - task: TerraformCLI@0
+    displayName: Terraform init
+    inputs:
+      command: 'init'
+      backendType: 'azurerm'
+      backendServiceArm: 'terraform-sp-63498'
+      ensureBackend: true
+      backendAzureRmResourceGroupName: '$(vg-assetname)-$(vg-environment)-$(vg-location)-rg-1'
+      backendAzureRmResourceGroupLocation: '$(vg-location)'
+      backendAzureRmStorageAccountName: '$(vg-assetname)storageacc0011'
+      backendAzureRmStorageAccountSku: 'Standard_LRS'
+      backendAzureRmContainerName: 'tfstates'
+      backendAzureRmKey: '$(vg-environment)-tfstate'
+      allowTelemetryCollection: false
+      commandOptions: '-var assetname=$(vg-assetname) -var environment=$(vg-environment) -var location=$(vg-location)'
+      workingDirectory: '$(System.DefaultWorkingDirectory)/04_azure_pipeline_templates'
+  - task: TerraformCLI@0
+    displayName: Terraform validate
+    inputs:
+      command: 'validate'
+      environmentServiceName: 'terraform-sp-63498'
+      allowTelemetryCollection: false
+      workingDirectory: '$(System.DefaultWorkingDirectory)/04_azure_pipeline_templates'
+  - task: TerraformCLI@0
+    displayName: Terraform plan
+    inputs:
+      command: 'plan'
+      environmentServiceName: 'terraform-sp-63498'
+      allowTelemetryCollection: false
+      commandOptions: '-var assetname=$(vg-assetname) -var environment=$(vg-environment) -var location=$(vg-location)'
+      workingDirectory: '$(System.DefaultWorkingDirectory)/04_azure_pipeline_templates'    
+  - task: TerraformCLI@0
+    displayName: Terraform apply
+    inputs:
+      command: 'apply'
+      environmentServiceName: 'terraform-sp-63498'
+      commandOptions: '-var-file="dev/main.tfvars"'
+      allowTelemetryCollection: false
