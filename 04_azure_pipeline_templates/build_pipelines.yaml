@@ -9,6 +9,7 @@ stages:
 - stage: deploy_all
   jobs:
     - job:
+      displayName: deploy_dogs
       steps:
       - template: templates/cheatcode_template.yaml
         parameters: 
@@ -17,6 +18,7 @@ stages:
           location: westus
           serviceconnection: terraform-sp-63498
     - job:
+      displayName: deploy_cats
       steps:
       - template: templates/cheatcode_template.yaml
         parameters: 
